@@ -5,34 +5,36 @@ import { Alert, Button, Col, Container, Grid, Icon, Panel, Row } from 'rsuite'
 import {auth, database} from '../misc/firebase'
 
 
+
 const SignIn = () => {
 
-  const signinprovieder=async(provider)=>{
-    try{
-      const {additionalUserInfo,user}=await auth.signInWithPopup(provider)
-      if(additionalUserInfo.isNewUser){
-       await database.ref(`/profiles/${user.uid}`).set({
-          name:user.displayName,
-          createdat:firebase.database.ServerValue.TIMESTAMP
-        })
+  const signInWithProvider = async provider => {
+    try {
+      const { additionalUserInfo, user } = await auth.signInWithPopup(provider);
+
+      if (additionalUserInfo.isNewUser) {
+        await database.ref(`/profiles/${user.uid}`).set({
+          name: user.displayName,
+          createdAt: firebase.database.ServerValue.TIMESTAMP,
+        });
       }
-      Alert.info('signed in',4000)
+
+      Alert.success('Signed in', 4000);
+    } catch (err) {
+      Alert.error(err.message, 4000);
     }
-    catch(err){
-      Alert.info(err.message,4000)
-    }
-  }
+  };
 
 
   const GoogleSignin=()=>{
-    signinprovieder(new firebase.auth.GoogleAuthProvider())
+    signInWithProvider(new firebase.auth.GoogleAuthProvider())
   }
 
   const FacebookSignin=()=>{
-    signinprovieder(new firebase.auth.FacebookAuthProvider())
+    signInWithProvider(new firebase.auth.FacebookAuthProvider())
   }
   return (
-    <Container>
+    <Container >
     <Grid className="mt-page"> 
      <Row>
        <Col xs={24}   md={12} mdOffset={6} >
