@@ -1,18 +1,29 @@
 /* eslint-disable arrow-body-style */
-import React from 'react'
-import { Button, Drawer, Icon } from 'rsuite'
+import React, { useCallback } from 'react'
+import { Alert, Button, Drawer, Icon } from 'rsuite'
 import Dashboard from '.'
-import {useModalstate} from '../../misc/Customhook'
+import {useModalstate,useMediaQuery} from '../../misc/Customhook'
+import { auth } from '../../misc/firebase'
 
 const DashboardToggle = () => {
   const {isOpen,close,open}=useModalstate()
+  const formobile=useMediaQuery('(max-width:992px)')
+  
+  const SignOut=useCallback(()=>{
+    auth.signOut()
+    Alert.info('SignedOut',4000)
+
+    close();
+
+  },[close])
+
   return (
     <>
     <Button block color="blue" onClick={open}>
       <Icon icon='dashboard' /> Dash
     </Button>
-    <Drawer show={isOpen} onHide={close} placement="left">
-      <Dashboard /> 
+    <Drawer full={formobile} show={isOpen} onHide={close} placement="left">
+      <Dashboard signOut={SignOut} /> 
     </Drawer>
     </>
   )
