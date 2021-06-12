@@ -40,7 +40,7 @@ export const ProfileProvider = ({children})=>{
   },[])
 
   
-  return <profilecontext.Provider value={{ profile, isloading}}> {children}</profilecontext.Provider>
+  return <profilecontext.Provider value={{ profile, isloading}}>{children}</profilecontext.Provider>
 }
   
 export const useProfile=()=> useContext(profilecontext);

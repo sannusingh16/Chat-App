@@ -4,6 +4,8 @@ import { Alert, Button, Divider, Drawer } from 'rsuite'
 import {useProfile} from '../../context/profile.context'
 import { database } from '../../misc/firebase'
 import Editinput from '../Editinput'
+import ProvideBlock from './ProvideBlock'
+import Avatarbtn from './Avatarbtn'
 
 const Dashboard = ({signOut}) => {
   const {profile}=useProfile()
@@ -28,11 +30,13 @@ const Dashboard = ({signOut}) => {
       
       <Drawer.Body>
         <h3> Hey,{profile.name} </h3>
+        <ProvideBlock />
         <Divider />
       <Editinput name="nickname" 
                   initialvalue={profile.name}
                   onsave={onsave}
                   label={<div className="mb-2">Nickname</div>}/>
+      <Avatarbtn />
       </Drawer.Body>
       <Drawer.Footer>
         <Button block color="red" onClick={signOut}>Sign Out</Button>
