@@ -66,7 +66,7 @@ const Chatroombutton = () => {
          ref={formref}>
            <FormGroup>
              <ControlLabel>Room Name</ControlLabel>
-             <FormControl name='name' placeholder='Enter chat room name...'/>
+             <FormControl name="name" placeholder='Enter chat room name...'/>
            </FormGroup>
            <FormGroup>
               <ControlLabel>Desciption</ControlLabel>

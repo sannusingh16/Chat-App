@@ -1,4 +1,4 @@
-/* eslint-disable arrow-body-style */
+
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import {Nav,Loader} from 'rsuite'
