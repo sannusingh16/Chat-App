@@ -1,3 +1,4 @@
+
 {
   "rules": {
      "profiles": {
@@ -17,6 +18,7 @@
       "messages": {
         ".read": "auth !== null",
         ".write": "auth !== null",
+        ".indexOn": "author/uid",
       "$messgaes_id": {
         ".read": "auth !== null",
         ".write": "auth !== null"
@@ -24,5 +26,6 @@
     },
     ".read": false,
     ".write": false
+    
   }
 }

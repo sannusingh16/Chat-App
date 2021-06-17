@@ -5,7 +5,7 @@ import { nameshort } from '../../misc/helper,'
 
 const Avatardisplay = ({name,...rest}) => {
   return (
-    <Avatar circle className="width-200 height-200 img-fullsize font-huge"{...rest}>
+    <Avatar circle  {...rest}>
       {nameshort(name)}
     </Avatar>
   )

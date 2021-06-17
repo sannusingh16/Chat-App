@@ -14,3 +14,21 @@ export function transforarray(snapvalue) {
    }):[]
 }
 
+export async function getuserupdate(userId,keyToupdate,value,db){
+     
+  const updates={}
+  updates[`/profiles/${userId}/${keyToupdate}`]=value;
+
+  const getMsg=db.ref('/messages').orderByChild('/author/uid')
+  .equalTo(userId).once('value')
+  const getrms=db.ref('/rooms').orderByChild('/lastmessage/author/uid')
+  .equalTo(userId).once('value')
+  const [msgsnap,rmssnap]=await Promise.all([getMsg,getrms])
+  msgsnap.forEach(msnap=>{
+    updates[`/messages/${msnap.key}/author/${keyToupdate}`]=value
+  })
+  rmssnap.forEach(rsnap=>{
+    updates[`/rooms/${rsnap.key}/lastmessage/author/${keyToupdate}`]=value
+  })
+  return updates;
+}

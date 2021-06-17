@@ -6,6 +6,7 @@ import Avatardisplay from './Avatardisplay'
 import { useModalstate } from '../../misc/Customhook'
 import { database, storage } from '../../misc/firebase'
 import { useProfile } from '../../context/profile.context'
+import { getuserupdate } from '../../misc/helper,'
 
 
 
@@ -64,8 +65,8 @@ const Avatarbtn = () => {
         cacheControl:`public,max-age=${3600*24*3}`
       })
       const downloadurl=await uploadavatarref.ref.getDownloadURL()
-      const useravatar=database.ref(`/profiles/${profile.uid}`).child('avatar')
-      await useravatar.set(downloadurl)
+      const updates=await getuserupdate(profile.uid,'avatar',downloadurl,database)
+      database.ref().update(updates)
       Alert.info('updated avatar')
       setisloading(false)
       close()
@@ -94,7 +95,8 @@ const Avatarbtn = () => {
 
     
      <div className="mt-3 text-center">
-       <Avatardisplay name={profile.name} src={profile.avatar}/>
+       <Avatardisplay name={profile.name} src={profile.avatar} 
+       className="width-200 height-200 img-fullsize font-huge"/>
       <div>
         <label htmlFor="avatar-upload" className="cursor-pointer d-block padded">
           Select New avatar
