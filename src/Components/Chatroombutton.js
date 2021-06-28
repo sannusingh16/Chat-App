@@ -3,7 +3,7 @@ import React, { useCallback, useRef, useState } from 'react'
 import { Button,Icon,Modal,Form, FormGroup,ControlLabel, FormControl, Schema, Alert} from 'rsuite'
 import firebase from 'firebase/app'
 import { useModalstate } from '../misc/Customhook'
-import { database } from '../misc/firebase'
+import { auth, database } from '../misc/firebase'
 
 const initialvalue={
   name:'',
@@ -35,7 +35,10 @@ const Chatroombutton = () => {
      setisloading(true)
      const newdata={
        ...formvalue,
-       CreatedAt:firebase.database.ServerValue.TIMESTAMP
+       CreatedAt:firebase.database.ServerValue.TIMESTAMP,
+       admins:{
+         [auth.currentUser.uid]:true,
+       }
      }
 
     try {

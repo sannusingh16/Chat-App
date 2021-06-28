@@ -8,7 +8,6 @@ import { transforarray } from "../misc/helper,";
 const RoomContext=createContext()
 
 export const RoomsProvider=({children})=>{
-  // eslint-disable-next-line no-unused-vars
   const [rooms,setrooms]=useState(null)
   useEffect(()=>{
       const roomlisref=database.ref('rooms')

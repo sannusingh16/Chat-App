@@ -8,6 +8,10 @@ export function nameshort(name){
    return shorname[0][0]
 }
 
+export function transferar(snapval){
+  return snapval ? Object.keys(snapval):[];
+}
+
 export function transforarray(snapvalue) {
    return snapvalue ? Object.keys(snapvalue).map(roomid=>{
      return {...snapvalue[roomid],id:roomid}
