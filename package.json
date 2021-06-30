@@ -1,4 +1,5 @@
 {
+  "homepage": "https://sannusingh16.github.io/",
   "name": "chat-app",
   "version": "0.1.0",
   "private": true,
@@ -29,7 +30,9 @@
     "lint": "eslint src/**/*.js",
     "format": "prettier --write src/**/*.js",
     "format:lint": "npm run format && npm run lint",
-    "clear": "rimraf build"
+    "clear": "rimraf build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
