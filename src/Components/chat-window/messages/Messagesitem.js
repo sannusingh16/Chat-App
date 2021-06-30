@@ -18,6 +18,15 @@ const renderFileMessage = file => {
       </div>
     );
   }
+  if (file.contentType.includes('audio')) {
+    return (
+      // eslint-disable-next-line jsx-a11y/media-has-caption
+      <audio controls>
+        <source src={file.url} type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>    
+      );
+  }
 
   return <a href={file.url}>Download {file.name}</a>;
 };
@@ -49,7 +58,7 @@ const Messagesitem = ({message,handleadmin,handleClick,handledelete}) => {
        <Itembtncontrol {...(isliked?{color:'red'}:{})} isvisible={canshow} iconname='heart'
        tooltip="Like the message" badgecontent={Likecount} onClick={()=>handleClick(message.id)}/>
        {isAuthor &&  <Itembtncontrol  isvisible={canshow} iconname='close'
-       tooltip="Delete the message"  onClick={()=>handledelete(message.id)}/>}
+       tooltip="Delete the message"  onClick={()=>handledelete(message.id,file)} />}
      </div>
      <div className="word-break-all">{text}</div>
      {file && renderFileMessage(file)}

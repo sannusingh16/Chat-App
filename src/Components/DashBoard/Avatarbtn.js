@@ -23,6 +23,7 @@ const Avatarbtn = () => {
   const {profile}=useProfile()
   const [isloading,setisloading]=useState(false)
 
+
   const getblob=(canvas)=>{
     return new Promise((resolve,reject)=>{
        canvas.toBlob((blob)=>{
@@ -75,22 +76,7 @@ const Avatarbtn = () => {
       setisloading(false)
     }
   }
-  const ondeleteclicks=async()=>{
-   try {
-     if(profile.avatar){
-     const avatardelref=storage.ref(`/profiles/${profile.uid}`).child('avatar')
-     await avatardelref.delete()
-     const avatardeldata=database.ref(`/profiles/${profile.uid}`).child('avatar')
-     await avatardeldata.remove()
-     Alert.info('avatar removed')
-     }
-     else{
-       Alert.info('There is no avatar')
-     }
-   } catch (err) {
-     Alert.error(err.messgae)
-   }
- }
+ 
   return (
 
     
@@ -103,7 +89,7 @@ const Avatarbtn = () => {
           <input id="avatar-upload"  type="file" className="d-none"
            accept={inputfiles}  onChange={onUpload} />
         </label>
-        <Button appearance='ghost' onClick={ondeleteclicks}>Remove avatar</Button>
+        
         <Modal show={isOpen} onHide={close}>
           <Modal.Header>
             <Modal.Title>

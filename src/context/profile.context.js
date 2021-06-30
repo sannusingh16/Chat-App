@@ -30,7 +30,7 @@ export const ProfileProvider = ({children})=>{
         userStatusRef = database.ref(`/status/${authObj.uid}`);
         useRef = database.ref(`/profiles/${authObj.uid}`);
         useRef.on('value', snap => {
-          const { name, createdAt, avatar } = snap.val();
+          const { name, createdAt, avatar } = snap.val()
 
           const data = {
             name,

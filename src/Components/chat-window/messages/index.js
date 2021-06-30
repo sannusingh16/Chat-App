@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { Alert } from 'rsuite'
-import {auth, database} from '../../../misc/firebase'
+import {auth, database, storage} from '../../../misc/firebase'
 import { transforarray } from '../../../misc/helper,'
 import Messageitem from './Messagesitem'
 
@@ -63,7 +63,8 @@ const Messages = () => {
       })
       Alert.info(alertms,4000)
   },[])
-   const handledelete=useCallback((msgid)=>{
+   const handledelete=useCallback(async(msgid,file)=>{
+    // eslint-disable-next-line no-alert
     if(!window.confirm('Confirm to delete message')){
       return ;
     }
@@ -75,6 +76,7 @@ const Messages = () => {
         ...messages[messages.length-2],
         msgId:messages[messages.length-2].id
       }
+     
     }
     if(islast && messages.length===1){
       updates[`/rooms/${chatId}/lastmessage`]=null
@@ -84,6 +86,14 @@ const Messages = () => {
       Alert.info('Message deleted')
     } catch (err) {
       Alert.error(err.msg,4000)
+    }
+    if (file) {
+      try {
+        const fileRef = storage.refFromURL(file.url);
+        await fileRef.delete();
+      } catch (err) {
+        Alert.error(err.message);
+      }
     }
    },[chatId, messages])
 
